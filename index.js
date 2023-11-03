@@ -8,9 +8,10 @@ const bodyParser = require("body-parser")
 const cors=require('cors');
 const {ObjectId}=require('mongodb');
 const {signup, signin}=require('./auth_schema')
-const app = express()
+const app = express();
+const path = require('path');
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
 require("./mongoConnection")
 
@@ -99,6 +100,12 @@ app.get('/user/reservation/:email', async(req,res)=>
     }
     catch(e){console.log(e)}
 })
+
+app.use(express.static(path.join(__dirname,'../client')));
+
+app.get('*', function(req, res){
+    res.sendFile(path.join(__dirname,'../client/index.html'))
+});
 
 app.listen(PORT, (req,res)=>{
     console.log(`Server is running on ${PORT}`)
