@@ -1,0 +1,9 @@
+services:
+  - name: your-service-name
+    type: web
+    buildCommand: npm install
+    startCommand: npm start
+    env:
+      - key: NODE_ENV
+        value: production
+    languageVersion: 16
